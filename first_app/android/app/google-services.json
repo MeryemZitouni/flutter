@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "157941599923",
+    "project_id": "itfinder-be07f",
+    "storage_bucket": "itfinder-be07f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:157941599923:android:e761c405562f61bf7c2ac6",
+        "android_client_info": {
+          "package_name": "tn.meriem.job"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "157941599923-u6c22qbe7621r4nsqkics5e84e4f8q6h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClE54Ou2oZxynVMPRvO5lhkioGMutbV7U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "157941599923-u6c22qbe7621r4nsqkics5e84e4f8q6h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
