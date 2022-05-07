@@ -1,65 +1,53 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:first_app/core/auth/login_page.dart';
-import 'package:first_app/core/auth/welcome.dart';
-import 'package:first_app/core/home/applications.dart';
-import 'package:first_app/core/home/job_detail.dart';
-import 'package:first_app/core/home/recruteur/Input.dart';
-import 'package:first_app/core/home/recruteur/added.dart';
-import 'package:first_app/core/home/recruteur/addedList.dart';
-import 'package:first_app/core/search/search.dart';
-import 'package:first_app/core/search/widget/SearchList.dart';
-import 'package:first_app/models/application.dart';
+import 'package:first_app/screens/auth/login/login_screen.dart';
+import 'package:first_app/screens/recruiter/home_page_recruter.dart';
+import 'package:first_app/screens/splash_screen/splash_screen.dart';
+import 'package:first_app/screens/student/home_page_student.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:first_app/core/home/home_page.dart';
 import 'package:flutter/material.dart';
-import 'package:first_app/core/home/myapp.dart';
-import 'firebase_options.dart';
-import 'package:first_app/services/auth_service.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
-AuthService _authService = AuthService();
-final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+import 'screens/recruiter/components/add_requirement.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  await GetStorage.init();
+  WidgetsFlutterBinding.ensureInitialized(); //
+  await Firebase.initializeApp(); //
 
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(MaterialApp(home: await getAuthState()));
+  runApp(myApp());
 }
 
-/*class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class myApp extends StatelessWidget {
+  const myApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primaryColor: Color.fromARGB(255, 108, 67, 183),
-          accentColor: Color.fromARGB(255, 233, 226, 126),
-          // This is the theme of your application.
-          //
-          // Try running your application with "flutter run". You'll see the
-          // application has a blue toolbar. Then, without quitting the app, try
-          // changing the primarySwatch below to Colors.green and then invoke
-          // "hot reload" (press "r" in the console where you ran "flutter run",
-          // or simply save your changes to "hot reload" in a Flutter IDE).
-          // Notice that the counter didn't reset back to zero; the application
-          // is not restarted.
-        ),
-        home: SearchPage());
+    return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
+      initialRoute: "/splash_screen",
+      getPages: [
+        GetPage(
+            name: '/splash_screen',
+            page: () => SplashScreen(),
+            transition: Transition.rightToLeftWithFade),
+        GetPage(
+            name: '/add_job',
+            page: () => AddJob(),
+            transition: Transition.rightToLeftWithFade),
+        GetPage(
+            name: '/home_recruter',
+            page: () => HomepageRecruter(),
+            transition: Transition.rightToLeftWithFade),
+        GetPage(
+            name: '/login',
+            page: () => LoginScreen(),
+            transition: Transition.rightToLeftWithFade),
+        GetPage(
+            name: '/home_student',
+            page: () => Homepage(),
+            transition: Transition.rightToLeftWithFade),
+      ],
+    );
   }
-}*/
-
-Future<Widget> getAuthState() async {
-  return StreamBuilder<User?>(
-    stream: _firebaseAuth.authStateChanges(),
-    builder: (BuildContext context, snapshot) {
-      if (snapshot.hasData) {
-        return welcomepage();
-      }
-      return LoginScreen();
-    },
-  );
 }

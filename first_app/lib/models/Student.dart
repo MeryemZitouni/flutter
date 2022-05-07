@@ -2,19 +2,15 @@
 //
 //     final student = studentFromJson(jsonString);
 
-import 'dart:convert';
-
-Student studentFromJson(String str) => Student.fromJson(json.decode(str));
-
-String studentToJson(Student data) => json.encode(data.toJson());
-
 class Student {
   Student({
     this.firstName,
     this.lastName,
     this.email,
     this.instLevel,
+    this.url,
     this.cv,
+    this.role,
     required this.uid,
   });
 
@@ -24,22 +20,28 @@ class Student {
   String? email;
   String? instLevel;
   String? cv;
+  String? url;
+  String? role;
 
   factory Student.fromJson(Map<String, dynamic> json) => Student(
         uid: json["uid"],
-        firstName: json["first_name"],
-        lastName: json["last_name"],
+        firstName: json["firstName"],
+        lastName: json["lastName"],
         email: json["email"],
-        instLevel: json["inst_level"],
+        instLevel: json["instLevel"],
         cv: json["cv"],
+        url: json["url"],
+        role: json["role"],
       );
 
   Map<String, dynamic> toJson() => {
         "uid": uid,
-        "first_name": firstName,
-        "last_name": lastName,
+        "firstName": firstName,
+        "lastName": lastName,
         "email": email,
-        "inst_level": instLevel,
+        "instLevel": instLevel,
         "cv": cv,
+        "url": url,
+        "role": role,
       };
 }
