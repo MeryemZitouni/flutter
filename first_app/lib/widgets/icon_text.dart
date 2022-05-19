@@ -12,7 +12,7 @@ class IconText extends StatelessWidget {
         Icon(icon, color: Colors.yellow),
         SizedBox(width: 10),
         Text(
-          text,
+          "${text}",
           style: TextStyle(
             fontSize: 12,
             color: Colors.grey,

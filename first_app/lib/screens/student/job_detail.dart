@@ -9,8 +9,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_storage/get_storage.dart';
 
 class JobDetail extends StatefulWidget {
+  final bool able;
   Requirement requirement;
-  JobDetail(this.requirement);
+  JobDetail(this.requirement, this.able);
 
   @override
   _State createState() => _State();
@@ -18,8 +19,14 @@ class JobDetail extends StatefulWidget {
 
 class _State extends State<JobDetail> {
   bool loading = false;
-  var user = GetStorage().read("user");
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  var user = GetStorage().read("user");
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -79,7 +86,8 @@ class _State extends State<JobDetail> {
             children: [
               IconText(
                   Icons.location_on_outlined, widget.requirement.location!),
-              IconText(Icons.access_time_outlined, widget.requirement.periode!)
+              IconText(Icons.access_time_outlined,
+                  "${widget.requirement.periode!} Months")
             ],
           ),
           SizedBox(height: 30),
@@ -106,48 +114,56 @@ class _State extends State<JobDetail> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
                         )),
-                    onPressed: () async {
-                      setState(() {
-                        loading = true;
-                      });
-                      bool check = await StudentServices().applyToRequirement(
-                          ApplicationModel(
-                              studentId: user['id'],
-                              requirementId: widget.requirement.requirementId,
-                              meetUrl: ""));
-                      if (check) {
-                        Future.delayed(const Duration(milliseconds: 500), () {
-                          setState(() {
-                            loading = false;
-                          });
-                          Fluttertoast.showToast(
-                              msg: "You have been successfully applied ",
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.BOTTOM,
-                              timeInSecForIosWeb: 1,
-                              backgroundColor: Colors.grey,
-                              textColor: Colors.white,
-                              fontSize: 16.0);
-                          Navigator.pop(context);
-                        });
-                      } else {
-                        Future.delayed(const Duration(milliseconds: 500), () {
-                          setState(() {
-                            loading = false;
-                          });
-                          Fluttertoast.showToast(
-                              msg: "Error has been occured ",
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.BOTTOM,
-                              timeInSecForIosWeb: 1,
-                              backgroundColor: Colors.grey,
-                              textColor: Colors.white,
-                              fontSize: 16.0);
-                          Navigator.pop(context);
-                        });
-                      }
-                    },
-                    child: Text('Apply Now'),
+                    onPressed: widget.able
+                        ? () async {
+                            setState(() {
+                              loading = true;
+                            });
+
+                            bool check = await StudentServices()
+                                .applyToRequirement(ApplicationModel(
+                                    studentId: user['id'],
+                                    requirementId:
+                                        widget.requirement.requirementId,
+                                    meetUrl: ""));
+                            if (check) {
+                              Future.delayed(const Duration(milliseconds: 500),
+                                  () {
+                                setState(() {
+                                  loading = false;
+                                });
+                                Fluttertoast.showToast(
+                                    msg: "You have been successfully applied ",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.BOTTOM,
+                                    timeInSecForIosWeb: 1,
+                                    backgroundColor: Colors.grey,
+                                    textColor: Colors.white,
+                                    fontSize: 16.0);
+                                Navigator.pop(context);
+                              });
+                            } else {
+                              Future.delayed(const Duration(milliseconds: 500),
+                                  () {
+                                setState(() {
+                                  loading = false;
+                                });
+                                Fluttertoast.showToast(
+                                    msg: "Error has been occured ",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.BOTTOM,
+                                    timeInSecForIosWeb: 1,
+                                    backgroundColor: Colors.grey,
+                                    textColor: Colors.white,
+                                    fontSize: 16.0);
+                                Navigator.pop(context);
+                              });
+                            }
+                          }
+                        : null,
+                    child: widget.able
+                        ? Text('Apply Now')
+                        : Text('You have allready applied'),
                   ),
                 )
         ],

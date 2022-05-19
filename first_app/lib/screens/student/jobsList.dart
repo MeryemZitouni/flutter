@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../../models/Requirement.dart';
 import 'job_detail.dart';
@@ -16,7 +17,7 @@ class _JobsListState extends State<JobsList> {
   TextEditingController _searchController = TextEditingController();
   bool searching = false;
   String valueSearch = "";
-
+  var user = GetStorage().read("user");
   @override
   void initState() {
     // TODO: implement initState
@@ -52,7 +53,10 @@ class _JobsListState extends State<JobsList> {
   List resultsList = [];
   List filtredList = [];
   getData() async {
-    var data = await FirebaseFirestore.instance.collection("requirement").get();
+    var data = await FirebaseFirestore.instance
+        .collection("requirement")
+        .where("deadline", isGreaterThanOrEqualTo: DateTime.now())
+        .get();
     setState(() {
       filtredList = data.docs;
     });
@@ -109,13 +113,21 @@ class _JobsListState extends State<JobsList> {
                         data.data() as Map<String, dynamic>));
                   }
                   return GestureDetector(
-                      onTap: () {
+                      onTap: () async {
+                        var req = await FirebaseFirestore.instance
+                            .collection("application")
+                            .where("requirementId",
+                                isEqualTo:
+                                    "${listOfrequirements[index].requirementId}")
+                            .where("studentId", isEqualTo: "${user['id']}")
+                            .get();
+                        bool able = req.docs.toList().isEmpty;
                         showModalBottomSheet(
                             backgroundColor: Colors.transparent,
                             isScrollControlled: true,
                             context: context,
                             builder: (context) =>
-                                JobDetail(listOfrequirements[index]));
+                                JobDetail(listOfrequirements[index], able));
                       },
                       child: JobItem(
                         requirement: listOfrequirements[index],

@@ -100,7 +100,7 @@ class _HomepageState extends State<HomepageRecruter> {
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Container(
-                                      height: Constants.screenHeight * 0.25,
+                                      height: Constants.screenHeight * 0.3,
                                       padding: EdgeInsets.all(20),
                                       decoration: BoxDecoration(
                                         color: Colors.white,

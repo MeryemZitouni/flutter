@@ -249,7 +249,7 @@ class _pendingApplicationsState extends State<pendingApplications> {
                                                               .status ==
                                                           "accepted") ...[
                                                         Text(
-                                                            "Date : ${DateFormat("yyyy-mm-dd-hh-mm").format(listOfApplications[index].date!)}")
+                                                            "Date : ${DateFormat("yyyy-MM-dd-hh-mm").format(listOfApplications[index].date!)}")
                                                       ]
                                                     ],
                                                     crossAxisAlignment:
@@ -497,20 +497,6 @@ Column doneAddPlanning(BuildContext context, Size size) {
       SizedBox(
         height: size.height * 0.08,
       ),
-      ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            primary: Colors.blueAccent,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-            padding: EdgeInsets.all(15),
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 15),
-            child: Text("Cancel"),
-          ))
     ],
   );
 }

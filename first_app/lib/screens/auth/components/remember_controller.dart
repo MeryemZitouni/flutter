@@ -14,7 +14,8 @@ class RememberController extends GetxController {
       'name': recruteur.companyName,
       'url': recruteur.logoUrl,
       'id': recruteur.uid,
-      'location': recruteur.location
+      'location': recruteur.location,
+      'role': recruteur.role,
     });
   }
 
@@ -25,7 +26,8 @@ class RememberController extends GetxController {
       'email': student.email,
       'name': "${student.firstName} ${student.lastName} ",
       'url': student.url,
-      'id': student.uid
+      'id': student.uid,
+      'role': student.role,
     });
   }
 

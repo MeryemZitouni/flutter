@@ -62,13 +62,14 @@ class JobItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 IconText(Icons.location_on_outlined, requirement.location!),
-                IconText(Icons.access_time_outlined, requirement.periode!)
+                IconText(Icons.access_time_outlined,
+                    "${requirement.periode!} Months")
               ],
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: IconText(Icons.access_time_sharp,
-                  "Deadline : ${DateFormat("yyyy-mm-dd").format(requirement.deadline!)}"),
+                  "Deadline : ${DateFormat("yyyy-MM-dd").format(requirement.deadline!)}"),
             ),
           ],
         ));
